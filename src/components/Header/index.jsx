@@ -1,14 +1,15 @@
-import { HeaderContainer, Content } from './styles';
 import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-export function Header() {
+import { HeaderContainer, Content } from './styles';
+
+export function Header({ link, buttonName }) {
   return (
     <HeaderContainer>
       <Content>
-        <h1>Github Explorer - Orgs</h1>
-        <Link to='/user-repos'>
-          <Button>Pesquisar repositórios de usuários</Button>
+        <h1>GitHub Explorer</h1>
+        <Link to={link}>
+          <Button>Pesquisar repositórios de {buttonName}</Button>
         </Link>
       </Content>
     </HeaderContainer>

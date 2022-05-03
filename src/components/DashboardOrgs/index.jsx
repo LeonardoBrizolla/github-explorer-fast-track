@@ -1,9 +1,9 @@
-import { RepoForm } from '../RepoForm';
-import { RepoList } from '../RepoIList';
+import { RepoForm } from './RepoForm';
+import { RepoList } from './RepoIList';
 
 import { Container } from './styles';
 
-export function Dashboard() {
+export function DashboardOrgs() {
   return (
     <Container>
       <RepoForm />

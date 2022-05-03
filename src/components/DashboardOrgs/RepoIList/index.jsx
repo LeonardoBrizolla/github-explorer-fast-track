@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { selectOrgs } from '../../redux/orgsSlice';
+import { selectOrgs } from '../../../redux/orgsSlice';
 import { RepoItem } from '../RepoItem';
-import api from '../../services/api.js';
+import api from '../../../services/api.js';
 
 import { Container } from './styles';
 

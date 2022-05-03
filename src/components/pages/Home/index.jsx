@@ -1,11 +1,11 @@
-import { Dashboard } from '../../Dashboard';
+import { DashboardOrgs } from '../../DashboardOrgs';
 import { Header } from '../../Header';
 
 export function Home() {
   return (
     <>
-      <Header />
-      <Dashboard />
+      <Header link='/user-repos' buttonName='users' />
+      <DashboardOrgs />
     </>
   );
 }

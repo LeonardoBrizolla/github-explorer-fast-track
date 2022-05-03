@@ -18,13 +18,12 @@ export const Content = styled.div`
   }
 
   button {
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: var(--text-title);
     background: var(--green);
     border: 0;
     padding: 0 2rem;
     height: 3rem;
-    font-weight: bold;
 
     transition: filter 0.2s;
 
