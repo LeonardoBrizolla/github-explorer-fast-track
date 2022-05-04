@@ -20,10 +20,23 @@ yarn dev
 http://localhost:3000/
 ```
 
+## 🧰 Technologies
+
+```md
+Axios
+Bootstrap
+React
+Context-api
+React Router Dom
+Redux
+Redux Saga
+styled-components
+```
+
 ## 🖼️ Print
 
 ![image](.github/print.jpg)
 
 ### Made ❤️ by Leonardo Brizolla
 
-#### Enjoy
+#### Enjoy 😊
