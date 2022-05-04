@@ -3,20 +3,21 @@ import { createSlice } from '@reduxjs/toolkit';
 export const slice = createSlice({
   name: 'orgs',
   initialState: {
-    name: '',
-    isClear: false,
+    repoName: '',
+    isRepoFounded: false,
   },
+
   reducers: {
-    changeOrgs(state, action) {
-      return { ...state, isClear: false, name: action.payload };
+    changeRepoName(state, action) {
+      return { ...state, isRepoFounded: true, repoName: action.payload };
     },
-    ClearOrgs(state) {
-      return { ...state, isClear: true, name: '' };
+    clearOrgs(state) {
+      return { ...state, isRepoFounded: false, repoName: '' };
     },
   },
 });
 
-export const { changeOrgs, ClearOrgs } = slice.actions;
+export const { changeRepoName, clearOrgs } = slice.actions;
 
 export const selectOrgs = (state) => state.orgs;
 

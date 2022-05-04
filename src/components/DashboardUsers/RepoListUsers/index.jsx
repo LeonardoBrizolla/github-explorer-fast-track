@@ -1,21 +1,27 @@
 import { useReposUsers } from '../../../hooks/useReposUsers';
 import { RepoItemUsers } from '../RepoItemUsers';
 
-import { Container } from './styles';
+import { Container, Waiting } from './styles';
 
 export function RepoListUsers() {
-  const { nameRepo, reposUser } = useReposUsers();
+  const { nameRepo, reposUser, isRepoFounded } = useReposUsers();
 
   return (
     <Container>
-      {nameRepo && <h2>Repositórios encontrados de {nameRepo}</h2>}
+      {isRepoFounded && <h2>Repositórios encontrados de {nameRepo}</h2>}
 
-      {nameRepo && (
+      {isRepoFounded && (
         <ul>
           {reposUser.map((reposUser) => (
             <RepoItemUsers key={reposUser.name} repo={reposUser} />
           ))}
         </ul>
+      )}
+
+      {!isRepoFounded && (
+        <Waiting>
+          <h3>Aguardando pesquisa</h3>
+        </Waiting>
       )}
     </Container>
   );

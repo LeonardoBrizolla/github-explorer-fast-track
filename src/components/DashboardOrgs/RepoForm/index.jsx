@@ -1,39 +1,41 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeOrgs, ClearOrgs, selectOrgs } from '../../../redux/orgsSlice';
+import { useDispatch } from 'react-redux';
+import { changeRepoName, clearOrgs } from '../../../redux/orgsSlice';
 
 import { FormControl, Button } from 'react-bootstrap';
-
 import { Container, Content } from './styles';
 
 export function RepoForm() {
   const [repoName, setRepoName] = useState('');
-
   const dispatch = useDispatch();
-  const { name } = useSelector(selectOrgs);
 
-  function handleSearchOrgs(event) {
+  function handleSearchRepoOrgs(event) {
     event.preventDefault();
-    dispatch(changeOrgs(repoName));
-    setRepoName('');
+
+    if (repoName === '') {
+      return;
+    }
+
+    dispatch(changeRepoName(repoName));
   }
 
   function handleClear() {
-    dispatch(ClearOrgs());
+    dispatch(clearOrgs());
+    setRepoName('');
   }
 
   return (
     <Container>
-      <h2>Orgs</h2>
+      <h2>Empresa:</h2>
       <Content>
         <FormControl
           type='text'
-          placeholder='Rocketseat...'
+          placeholder='Facebook ...'
           value={repoName}
           onChange={(event) => setRepoName(event.target.value)}
         />
 
-        <Button type='submit' onClick={handleSearchOrgs}>
+        <Button type='submit' onClick={handleSearchRepoOrgs}>
           Buscar
         </Button>
 

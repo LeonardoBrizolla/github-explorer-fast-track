@@ -13,7 +13,7 @@ export function RepoFormUsers() {
   function handleSearchReposUser(event) {
     event.preventDefault();
 
-    searchReposUser(repoUserName);
+    searchReposUser(repoUserName.trim());
 
     setRepoUserName('');
   }
@@ -24,12 +24,12 @@ export function RepoFormUsers() {
 
   return (
     <Container>
-      <h2>Users</h2>
+      <h2>Usuário:</h2>
 
       <Content>
         <FormControl
           type='text'
-          placeholder='LeonardoBrizolla...'
+          placeholder='LeonardoBrizolla ...'
           value={repoUserName}
           onChange={(event) => setRepoUserName(event.target.value)}
         />

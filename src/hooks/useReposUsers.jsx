@@ -6,6 +6,7 @@ const ReposUserContext = createContext([]);
 export function RepoUsersProvider({ children }) {
   const [reposUser, setReposUser] = useState([]);
   const [nameRepo, setNameRepo] = useState('');
+  const [isRepoFounded, setIsRepoFounded] = useState(false);
 
   function searchReposUser(nameRepo) {
     setNameRepo(nameRepo);
@@ -14,19 +15,36 @@ export function RepoUsersProvider({ children }) {
   function clearReposUser() {
     setNameRepo('');
     setReposUser([]);
+    setIsRepoFounded(false);
   }
 
   useEffect(() => {
     if (nameRepo) {
       api
         .get(`users/${nameRepo}/repos`)
-        .then((response) => setReposUser(response.data));
+        .then((response) => {
+          if (response.statusCode !== 404) {
+            setReposUser(response.data);
+            setIsRepoFounded(true);
+          }
+        })
+        .catch((res) => {
+          if (res.stratusCode === 404) {
+            setIsRepoFounded(false);
+          }
+        });
     }
   }, [nameRepo]);
 
   return (
     <ReposUserContext.Provider
-      value={{ reposUser, nameRepo, searchReposUser, clearReposUser }}
+      value={{
+        reposUser,
+        nameRepo,
+        isRepoFounded,
+        searchReposUser,
+        clearReposUser,
+      }}
     >
       {children}
     </ReposUserContext.Provider>

@@ -13,3 +13,10 @@ export const Container = styled.section`
     padding: 0;
   }
 `;
+
+export const Waiting = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+  color: var(--text-body);
+`;

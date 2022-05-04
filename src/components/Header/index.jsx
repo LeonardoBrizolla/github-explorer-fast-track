@@ -9,7 +9,7 @@ export function Header({ link, buttonName }) {
       <Content>
         <h1>GitHub Explorer</h1>
         <Link to={link}>
-          <Button>Pesquisar repositórios de {buttonName}</Button>
+          <Button>{buttonName}</Button>
         </Link>
       </Content>
     </HeaderContainer>

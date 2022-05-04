@@ -1,31 +1,50 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { selectOrgs } from '../../../redux/orgsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectOrgs, clearOrgs } from '../../../redux/orgsSlice';
 import { RepoItem } from '../RepoItem';
 import api from '../../../services/api.js';
 
-import { Container } from './styles';
+import { Container, Waiting } from './styles';
 
 export function RepoList() {
   const [repos, setRepos] = useState([]);
-  const { name } = useSelector(selectOrgs);
+  const { repoName, isRepoFounded } = useSelector(selectOrgs);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (name) {
-      api.get(`orgs/${name}/repos`).then((response) => setRepos(response.data));
+    if (repoName) {
+      api
+        .get(`orgs/${repoName}/repos`)
+        .then((response) => {
+          if (response.status === 200) {
+            setRepos(response.data);
+          }
+        })
+        .catch((err) => {
+          if (err.response.status === 404) {
+            dispatch(clearOrgs());
+          }
+        });
     }
-  }, [name]);
+  }, [repoName]);
 
   return (
     <Container>
-      {name && <h2>Repositórios encontrados de {name}</h2>}
+      {isRepoFounded && <h2>Repositórios encontrados de {repoName}</h2>}
 
-      {name && (
+      {isRepoFounded && (
         <ul>
           {repos.map((repo) => (
             <RepoItem key={repo.name} repo={repo} />
           ))}
         </ul>
+      )}
+
+      {!isRepoFounded && (
+        <Waiting>
+          <h3>Aguardando pesquisa</h3>
+        </Waiting>
       )}
     </Container>
   );
