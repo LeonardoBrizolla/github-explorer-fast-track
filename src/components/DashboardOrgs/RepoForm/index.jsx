@@ -1,28 +1,35 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { changeRepoName, clearOrgs } from '../../../redux/orgsSlice';
+import { fetchOrgRequest, fetchOrgFailure } from '../../../redux/orgsSlice';
 
 import { FormControl, Button } from 'react-bootstrap';
 import { Container, Content } from './styles';
 
 export function RepoForm() {
+  const textInput = useRef(null);
   const [repoName, setRepoName] = useState('');
   const dispatch = useDispatch();
 
   function handleSearchRepoOrgs(event) {
     event.preventDefault();
 
-    if (repoName === '') {
+    if (repoName.trim() === '') {
+      setRepoName('');
       return;
     }
 
-    dispatch(changeRepoName(repoName));
+    dispatch(fetchOrgRequest(repoName));
   }
 
   function handleClear() {
-    dispatch(clearOrgs());
+    dispatch(fetchOrgFailure());
     setRepoName('');
+    textInput.current.focus();
   }
+
+  useEffect(() => {
+    textInput.current.focus();
+  }, []);
 
   return (
     <Container>
@@ -33,6 +40,7 @@ export function RepoForm() {
           placeholder='Facebook ...'
           value={repoName}
           onChange={(event) => setRepoName(event.target.value)}
+          ref={textInput}
         />
 
         <Button type='submit' onClick={handleSearchRepoOrgs}>

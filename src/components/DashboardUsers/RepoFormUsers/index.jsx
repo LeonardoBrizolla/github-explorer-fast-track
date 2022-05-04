@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useReposUsers } from '../../../hooks/useReposUsers';
 
 import { FormControl, Button } from 'react-bootstrap';
@@ -6,21 +6,32 @@ import { FormControl, Button } from 'react-bootstrap';
 import { Container, Content } from './styles';
 
 export function RepoFormUsers() {
-  const { searchReposUser, clearReposUser } = useReposUsers();
-
+  const textInput = useRef(null);
+  const { fetchRepoUserRequest, fetchRepoUserFailed } = useReposUsers();
   const [repoUserName, setRepoUserName] = useState('');
 
   function handleSearchReposUser(event) {
     event.preventDefault();
 
-    searchReposUser(repoUserName.trim());
+    if (repoUserName.trim() === '') {
+      fetchRepoUserFailed();
+      setRepoUserName('');
+      textInput.current.focus();
+      return;
+    }
 
-    setRepoUserName('');
+    fetchRepoUserRequest(repoUserName.trim());
   }
 
   function handleClear() {
-    clearReposUser();
+    fetchRepoUserFailed();
+    setRepoUserName('');
+    textInput.current.focus();
   }
+
+  useEffect(() => {
+    textInput.current.focus();
+  }, []);
 
   return (
     <Container>
@@ -32,6 +43,7 @@ export function RepoFormUsers() {
           placeholder='LeonardoBrizolla ...'
           value={repoUserName}
           onChange={(event) => setRepoUserName(event.target.value)}
+          ref={textInput}
         />
 
         <Button type='submit' onClick={handleSearchReposUser}>

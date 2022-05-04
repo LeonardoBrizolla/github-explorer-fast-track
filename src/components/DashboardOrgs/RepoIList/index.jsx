@@ -1,33 +1,11 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectOrgs, clearOrgs } from '../../../redux/orgsSlice';
+import { useSelector } from 'react-redux';
+import { selectOrgs } from '../../../redux/orgsSlice';
 import { RepoItem } from '../RepoItem';
-import api from '../../../services/api.js';
 
 import { Container, Waiting } from './styles';
 
 export function RepoList() {
-  const [repos, setRepos] = useState([]);
-  const { repoName, isRepoFounded } = useSelector(selectOrgs);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (repoName) {
-      api
-        .get(`orgs/${repoName}/repos`)
-        .then((response) => {
-          if (response.status === 200) {
-            setRepos(response.data);
-          }
-        })
-        .catch((err) => {
-          if (err.response.status === 404) {
-            dispatch(clearOrgs());
-          }
-        });
-    }
-  }, [repoName]);
+  const { repoName, isRepoFounded, repos } = useSelector(selectOrgs);
 
   return (
     <Container>

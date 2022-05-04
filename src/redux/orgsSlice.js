@@ -3,21 +3,26 @@ import { createSlice } from '@reduxjs/toolkit';
 export const slice = createSlice({
   name: 'orgs',
   initialState: {
+    repos: [],
     repoName: '',
     isRepoFounded: false,
   },
 
   reducers: {
-    changeRepoName(state, action) {
+    fetchOrgRequest(state, action) {
       return { ...state, isRepoFounded: true, repoName: action.payload };
     },
-    clearOrgs(state) {
-      return { ...state, isRepoFounded: false, repoName: '' };
+    fetchOrgSuccess(state, action) {
+      return { ...state, repos: action.payload };
+    },
+    fetchOrgFailure(state) {
+      return { ...state, isRepoFounded: false, repoName: '', repos: [] };
     },
   },
 });
 
-export const { changeRepoName, clearOrgs } = slice.actions;
+export const { fetchOrgRequest, fetchOrgSuccess, fetchOrgFailure } =
+  slice.actions;
 
 export const selectOrgs = (state) => state.orgs;
 

@@ -8,11 +8,11 @@ export function RepoUsersProvider({ children }) {
   const [nameRepo, setNameRepo] = useState('');
   const [isRepoFounded, setIsRepoFounded] = useState(false);
 
-  function searchReposUser(nameRepo) {
+  function fetchRepoUserRequest(nameRepo) {
     setNameRepo(nameRepo);
   }
 
-  function clearReposUser() {
+  function fetchRepoUserFailed() {
     setNameRepo('');
     setReposUser([]);
     setIsRepoFounded(false);
@@ -30,7 +30,7 @@ export function RepoUsersProvider({ children }) {
         })
         .catch((res) => {
           if (res.stratusCode === 404) {
-            setIsRepoFounded(false);
+            fetchRepoUserFailed();
           }
         });
     }
@@ -42,8 +42,8 @@ export function RepoUsersProvider({ children }) {
         reposUser,
         nameRepo,
         isRepoFounded,
-        searchReposUser,
-        clearReposUser,
+        fetchRepoUserRequest,
+        fetchRepoUserFailed,
       }}
     >
       {children}

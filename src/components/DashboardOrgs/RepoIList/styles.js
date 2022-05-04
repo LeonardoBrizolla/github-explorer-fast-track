@@ -17,6 +17,6 @@ export const Container = styled.section`
 export const Waiting = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 4rem;
+  margin-top: 10rem;
   color: var(--text-body);
 `;

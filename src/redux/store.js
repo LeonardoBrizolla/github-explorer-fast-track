@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import orgsReducer from './orgsSlice';
 import createSagaMiddleware from 'redux-saga';
 
-import { helloSaga } from './sagas';
+import { mySaga } from './sagas';
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];
@@ -15,4 +15,4 @@ export default configureStore({
     getDefaultMiddleware().concat(middleware),
 });
 
-sagaMiddleware.run(helloSaga);
+sagaMiddleware.run(mySaga);
