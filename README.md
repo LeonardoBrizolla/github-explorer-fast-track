@@ -33,10 +33,16 @@ Redux Saga
 styled-components
 ```
 
+## ⚙️ API
+
+```md
+https://api.github.com
+```
+
 ## 🖼️ Print
 
 ![image](.github/print.jpg)
 
-### Made ❤️ by Leonardo Brizolla
+### Made with ❤️ by Leonardo Brizolla
 
 #### Enjoy 😊
